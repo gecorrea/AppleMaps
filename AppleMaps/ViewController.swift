@@ -99,21 +99,23 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        if let ann = view.annotation {
-            if let titleOptional = ann.title,
+        if let pin = view.annotation {
+            if let titleOptional = pin.title,
                 let title = titleOptional {
                 
-//                let urlString = locationsURLs[title],
-                    let imageURLString = locationImages[title]
+               if let urlString = locationsURLs[title],
+                    let imageURLString = locationImages[title] {
 
                 DispatchQueue.global().async {
-                    if let imageURL = URL(string: imageURLString!),
+                    if let imageURL = URL(string: imageURLString),
                         let imageData = try? Data.init(contentsOf: imageURL),
                         let image = UIImage(data: imageData) {
                         
                         DispatchQueue.main.async {
                             let theImageButton = view.leftCalloutAccessoryView as? UIButton
                             theImageButton?.setImage(image, for: .normal)
+                            
+                            }
                         }
                     }
                 }
@@ -122,11 +124,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
 
     @IBAction func webView(segue: UIStoryboardSegue) {
-        
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        <#code#>
+        
     }
 
 }

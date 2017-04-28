@@ -75,10 +75,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
-        <!--View Controller-->
+        <!--Web View-->
         <scene sceneID="XJu-Cs-K2o">
             <objects>
-                <viewController id="dzp-Eq-pRw" sceneMemberID="viewController">
+                <viewController id="dzp-Eq-pRw" customClass="WebView" customModule="AppleMaps" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YgH-bG-gTz"/>
                         <viewControllerLayoutGuide type="bottom" id="6pB-vo-YwV"/>
@@ -116,6 +116,9 @@
                             <constraint firstItem="6pB-vo-YwV" firstAttribute="top" secondItem="Dj9-tH-yLp" secondAttribute="bottom" id="mBv-52-5UP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="webView" destination="Dj9-tH-yLp" id="NWF-5O-GjY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9a-Rj-cih" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
