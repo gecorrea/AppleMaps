@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA09732B1EB0F14E00CD9E4E /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09732A1EB0F14E00CD9E4E /* Annotation.swift */; };
+		AA73CB8F1EB3A716002512D8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73CB8E1EB3A716002512D8 /* WebView.swift */; };
 		AAC7E51B1EAF9187008B9C99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7E51A1EAF9187008B9C99 /* AppDelegate.swift */; };
 		AAC7E51D1EAF9187008B9C99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7E51C1EAF9187008B9C99 /* ViewController.swift */; };
 		AAC7E5201EAF9187008B9C99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAC7E51E1EAF9187008B9C99 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		AA09732A1EB0F14E00CD9E4E /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		AA73CB8E1EB3A716002512D8 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		AAC7E5171EAF9187008B9C99 /* AppleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAC7E51A1EAF9187008B9C99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAC7E51C1EAF9187008B9C99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				AAC7E51C1EAF9187008B9C99 /* ViewController.swift */,
 				AA09732A1EB0F14E00CD9E4E /* Annotation.swift */,
 				AAC7E51E1EAF9187008B9C99 /* Main.storyboard */,
+				AA73CB8E1EB3A716002512D8 /* WebView.swift */,
 				AAC7E5211EAF9187008B9C99 /* Assets.xcassets */,
 				AAC7E5231EAF9187008B9C99 /* LaunchScreen.storyboard */,
 				AAC7E5261EAF9187008B9C99 /* Info.plist */,
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAC7E51D1EAF9187008B9C99 /* ViewController.swift in Sources */,
+				AA73CB8F1EB3A716002512D8 /* WebView.swift in Sources */,
 				AA09732B1EB0F14E00CD9E4E /* Annotation.swift in Sources */,
 				AAC7E51B1EAF9187008B9C99 /* AppDelegate.swift in Sources */,
 			);

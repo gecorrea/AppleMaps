@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -73,6 +74,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="XJu-Cs-K2o">
+            <objects>
+                <viewController id="dzp-Eq-pRw" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YgH-bG-gTz"/>
+                        <viewControllerLayoutGuide type="bottom" id="6pB-vo-YwV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6DU-HA-641">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dj9-tH-yLp">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bxq-5y-Fy7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem title="Title" id="1vK-Lh-TKf">
+                                        <leftBarButtonItems>
+                                            <barButtonItem title="&lt;" id="xod-jZ-0hE"/>
+                                            <barButtonItem title="&gt;" id="Gnu-lF-MT5"/>
+                                        </leftBarButtonItems>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="eLs-38-gE6"/>
+                                            <barButtonItem systemItem="stop" id="55z-KQ-KRw"/>
+                                        </rightBarButtonItems>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Dj9-tH-yLp" firstAttribute="leading" secondItem="6DU-HA-641" secondAttribute="leading" id="5Ig-1b-OPA"/>
+                            <constraint firstItem="Dj9-tH-yLp" firstAttribute="top" secondItem="6DU-HA-641" secondAttribute="top" id="7Ib-Iq-k77"/>
+                            <constraint firstAttribute="trailing" secondItem="Dj9-tH-yLp" secondAttribute="trailing" id="Cka-sv-ggS"/>
+                            <constraint firstItem="6pB-vo-YwV" firstAttribute="top" secondItem="Dj9-tH-yLp" secondAttribute="bottom" id="mBv-52-5UP"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f9a-Rj-cih" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="937" y="139"/>
         </scene>
     </scenes>
     <resources>

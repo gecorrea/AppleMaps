@@ -13,7 +13,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     let tttLocation:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 40.70859189999999, longitude: -74.01492050000002)
     
     var locationImages: [String : String] = [:]
-
+    var locationsURLs: [String : String] = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,6 +44,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         for location in annotations {
             locationImages[location.title!] = location.imageURL
+            locationsURLs[location.title!] = location.url
         }
 
         mapView.addAnnotations(annotations)
@@ -71,10 +73,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
     }
     
-//    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-//        mapView.setRegion(MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 250, 250), animated: true)
-//    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             //return nil so map view draws "blue dot" for standard user location
@@ -92,73 +90,44 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         else {
             pinView!.annotation = annotation
         }
-//        
-//        pinView?.leftCalloutAccessoryView = nil
-//        pinView?.rightCalloutAccessoryView = nil
-//        configureDetialView(annotationView: pinView!)
-        
-        
-        
-        if let title = annotation.title,
-            let actualTitle = title,
-            let imageURLString = locationImages[actualTitle] {
-            
-            //
-            DispatchQueue.global().async {
-                if let imageURL = URL(string: imageURLString),
-                    let imageData = try? Data.init(contentsOf: imageURL),
-                    let image = UIImage(data: imageData) {
-                    
-                    DispatchQueue.main.async {
-                        pinView?.leftCalloutAccessoryView?.frame.size = CGSize(width: 50, height: 50)
-                        pinView?.leftCalloutAccessoryView = UIImageView(image: image)
-                        pinView?.leftCalloutAccessoryView?.contentMode = .scaleAspectFit
-                        pinView?.leftCalloutAccessoryView?.clipsToBounds = true
-                    }
-                }
-
-            }
-            
-//            let imageData = try? Data.init(contentsOf: URL()
-            
-        }
-//            imageURLString = locationImages[annotation.title] as? String {
-//        
-//        }
-        
-//        let imageData = try? Data.init(contentsOf: <#T##URL#>)
-//        if let image = UIImage
-//        
-//        
-//        guard let image = UIImage(data: Data(contentsOf: URL(fileURLWithPath: locationImages[annotation.title]!)))
-//            else {return}
+       
+        pinView?.leftCalloutAccessoryView = nil
+        pinView?.leftCalloutAccessoryView = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         
         return pinView
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        if let ann = view.annotation {
+            if let titleOptional = ann.title,
+                let title = titleOptional {
+                
+//                let urlString = locationsURLs[title],
+                    let imageURLString = locationImages[title]
 
-//    func configureDetialView(annotationView: MKAnnotationView) {
-//        let width = 200
-//        let height = 200
-//        
-//        let snapshotView = UIView()
-//        let views = ["snapshotView": snapshotView]
-//        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[snapshotView(200)]", options: [], metrics: nil, views: views))
-//        snapshotView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[snapshotView(200)]", options: [], metrics: nil, views: views))
-//        
-//        let options = MKMapSnapshotOptions()
-//        options.size = CGSize(width: width, height: height)
-//        options.camera = MKMapCamera(lookingAtCenter: annotationView.annotation!.coordinate, fromDistance: 250, pitch: 65, heading: 0)
-//        
-//        let snapshotter = MKMapSnapshotter(options: options)
-//        snapshotter.start { snapshot, error in
-//            if snapshot != nil {
-//                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-//                imageView.image = snapshot!.image
-//                snapshotView.addSubview(imageView)
-//            }
-//        }
-//        
-//        annotationView.detailCalloutAccessoryView = snapshotView
-//    }
+                DispatchQueue.global().async {
+                    if let imageURL = URL(string: imageURLString!),
+                        let imageData = try? Data.init(contentsOf: imageURL),
+                        let image = UIImage(data: imageData) {
+                        
+                        DispatchQueue.main.async {
+                            let theImageButton = view.leftCalloutAccessoryView as? UIButton
+                            theImageButton?.setImage(image, for: .normal)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @IBAction func webView(segue: UIStoryboardSegue) {
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        <#code#>
+    }
+
 }
 
