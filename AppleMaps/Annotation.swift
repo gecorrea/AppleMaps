@@ -12,5 +12,6 @@ class Annotation: NSObject, MKAnnotation {
         self.subtitle = subtitle
         self.coordinate = coordinate
         self.imageURL = imageURL
+        self.url = url
     }
 }

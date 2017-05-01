@@ -103,8 +103,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             if let titleOptional = pin.title,
                 let title = titleOptional {
                 
-               if let urlString = locationsURLs[title],
-                    let imageURLString = locationImages[title] {
+               if let imageURLString = locationImages[title] {
 
                 DispatchQueue.global().async {
                     if let imageURL = URL(string: imageURLString),
@@ -114,7 +113,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                         DispatchQueue.main.async {
                             let theImageButton = view.leftCalloutAccessoryView as? UIButton
                             theImageButton?.setImage(image, for: .normal)
-                            
                             }
                         }
                     }
@@ -122,13 +120,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             }
         }
     }
-
-    @IBAction func webView(segue: UIStoryboardSegue) {
-
-    }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.leftCalloutAccessoryView {
+            if let pin = view.annotation{
+                if let titleOptional = pin.title,
+                    let title = titleOptional {
+                    if let urlString = locationsURLs[title] {
+                        let webViewVC = self.storyboard?.instantiateViewController(withIdentifier: "WebView") as! WebView
+                        webViewVC.urlString = urlString
+                        webViewVC.navigationItem.title = title
+                        present(webViewVC, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
 
 }
