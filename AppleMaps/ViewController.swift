@@ -26,6 +26,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         
         mapView.region = MKCoordinateRegion()
         
+        searchRequest()
+        
         let tttPin = Annotation(title: "Turn To Tech", subtitle: "Learn, Build Apps, Get Hired", coordinate: tttLocation, imageURL: "http://turntotech.io/wp-content/uploads/2015/12/kaushik-biswas.jpg", url: "http://turntotech.io")
         
         let clintonHallLocation:CLLocationCoordinate2D = CLLocationCoordinate2DMake(40.70803125891289, -74.01487112045288)
@@ -133,6 +135,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                         present(webViewVC, animated: true, completion: nil)
                     }
                 }
+            }
+        }
+    }
+    
+    func searchRequest() {
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = "Restaurants"
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            guard let response = response else {
+                print("Search error: \(String(describing: error))")
+                return
+            }
+            
+            for item in response.mapItems {
+                let name = item.placemark.title
+                let sub = item.placemark.subtitle
+                let coor = item.placemark.coordinate
+                let url = item.url
+                
+                print("\(name)\n\(sub)\n\(coor)\n\(url)")
             }
         }
     }
