@@ -8,6 +8,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var logo: UIImageView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     let tttLocationPin:CLLocationCoordinate2D = CLLocationCoordinate2DMake(40.70859189999999, -74.01492050000002)
     let tttLocation:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 40.70859189999999, longitude: -74.01492050000002)
@@ -22,7 +23,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         mapView.delegate = self
-        mapView.showsUserLocation = false
+        mapView.showsUserLocation = true
+        searchBar.delegate = self as? UISearchBarDelegate
+        locationManager.startUpdatingLocation()
         
         mapView.region = MKCoordinateRegion()
         
@@ -48,10 +51,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
             locationImages[location.title!] = location.imageURL
             locationsURLs[location.title!] = location.url
         }
-
+        
         mapView.addAnnotations(annotations)
-        mapView.setRegion(MKCoordinateRegionMakeWithDistance(tttLocation, 300, 300), animated: true)
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -139,27 +143,32 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
     }
     
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        mapView.setRegion(MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 250, 250), animated: true)
+    }
+    
+    
+    
     func searchRequest() {
         let request = MKLocalSearchRequest()
         request.naturalLanguageQuery = "Restaurants"
         request.region = mapView.region
         
         let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
+        search.start(completionHandler:  { (response, error) in
             guard let response = response else {
                 print("Search error: \(String(describing: error))")
                 return
             }
             
             for item in response.mapItems {
-                let name = item.placemark.title
-                let sub = item.placemark.subtitle
+                let name = item.placemark.name
                 let coor = item.placemark.coordinate
                 let url = item.url
                 
-                print("\(name)\n\(sub)\n\(coor)\n\(url)")
+                print("\(name)\n\(coor)\n\(url)")
             }
-        }
+        })
     }
 
 }
