@@ -1,57 +1,34 @@
 import UIKit
 import WebKit
 
-class WebView: ViewController, UIWebViewDelegate {
+class WebView: UIViewController, WKNavigationDelegate {
     
-    @IBOutlet weak var webView: UIWebView!
-    @IBOutlet weak var navigationBar: UINavigationBar!
+
     @IBOutlet weak var mapButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    @IBOutlet weak var webView: WKWebView!
     
     var urlString = String()
     
     override func viewDidLoad() {
-        
-        self.goToWeb(urlString: urlString)
-        webView.delegate = self
+        webView.navigationDelegate = self
+        goToWeb(urlString: urlString)
     }
     
     func goToWeb(urlString: String) {
         let url = URL(string: urlString)
         let urlRequest = URLRequest(url: url!)
-        webView.loadRequest(urlRequest)
+        webView.load(urlRequest)
     }
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
-        mapButton.isHidden = false
-    }
-    
-    @IBAction func backAction(_ sender: Any) {
-        if webView.canGoBack {
-            webView.goBack()
-        }
-    }
-    
-    @IBAction func forwardAction(_ sender: Any) {
-        if webView.canGoForward {
-            webView.goForward()
-        }
-    }
-    
-    @IBAction func refreshAction(_ sender: Any) {
-        webView.reload()
-    }
-    
-    @IBAction func stopAction(_ sender: Any) {
-        webView.stopLoading()
-    }
+//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//    }
+//    
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//        mapButton.isHidden = false
+//    }
     
     @IBAction func backToMap(_ sender: Any) {
         let goBackToMap = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController

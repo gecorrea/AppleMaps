@@ -24,12 +24,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         mapView.delegate = self
         mapView.showsUserLocation = true
-        searchBar.delegate = self as? UISearchBarDelegate
         locationManager.startUpdatingLocation()
         
         mapView.region = MKCoordinateRegion()
         
-        searchRequest()
+//        searchRequest()
         
         let tttPin = Annotation(title: "Turn To Tech", subtitle: "Learn, Build Apps, Get Hired", coordinate: tttLocation, imageURL: "http://turntotech.io/wp-content/uploads/2015/12/kaushik-biswas.jpg", url: "http://turntotech.io")
         
@@ -128,15 +127,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        self.locationManager.stopUpdatingLocation()
         if control == view.leftCalloutAccessoryView {
             if let pin = view.annotation{
                 if let titleOptional = pin.title,
                     let title = titleOptional {
                     if let urlString = locationsURLs[title] {
-                        let webViewVC = self.storyboard?.instantiateViewController(withIdentifier: "WebView") as! WebView
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let webViewVC = storyboard.instantiateViewController(withIdentifier: "WebView") as! WebView
+                        _ = webViewVC.view
                         webViewVC.urlString = urlString
-                        webViewVC.navigationItem.title = title
-                        present(webViewVC, animated: true, completion: nil)
+                        self.navigationController?.pushViewController(webViewVC, animated: true)
+//                        present(webViewVC, animated: true, completion: nil)
+//                        self.performSegue(withIdentifier: "showweb", sender: self)
                     }
                 }
             }
@@ -149,27 +152,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     
     
-    func searchRequest() {
-        let request = MKLocalSearchRequest()
-        request.naturalLanguageQuery = "Restaurants"
-        request.region = mapView.region
-        
-        let search = MKLocalSearch(request: request)
-        search.start(completionHandler:  { (response, error) in
-            guard let response = response else {
-                print("Search error: \(String(describing: error))")
-                return
-            }
-            
-            for item in response.mapItems {
-                let name = item.placemark.name
-                let coor = item.placemark.coordinate
-                let url = item.url
-                
-                print("\(name)\n\(coor)\n\(url)")
-            }
-        })
-    }
+//    func searchRequest() {
+//        let request = MKLocalSearchRequest()
+//        request.naturalLanguageQuery = "Restaurants"
+//        request.region = mapView.region
+//        
+//        let search = MKLocalSearch(request: request)
+//        search.start(completionHandler:  { (response, error) in
+//            guard let response = response else {
+//                print("Search error: \(String(describing: error))")
+//                return
+//            }
+//            
+//            for item in response.mapItems {
+//                let name = item.placemark.name
+//                let coor = item.placemark.coordinate
+//                let url = item.url
+//                
+//                print("\(name)\n\(coor)\n\(url)")
+//            }
+//        })
+//    }
 
 }
 
