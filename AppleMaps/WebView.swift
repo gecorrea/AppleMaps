@@ -3,32 +3,38 @@ import WebKit
 
 class WebView: UIViewController, WKNavigationDelegate {
     
-
+    var theWeb : WKWebView!
+    
     @IBOutlet weak var mapButton: UIButton!
 
-    @IBOutlet weak var webView: WKWebView!
+//    @IBOutlet weak var webView: WKWebView!
     
     var urlString = String()
     
     override func viewDidLoad() {
-        webView.navigationDelegate = self
+        let configuration = WKWebViewConfiguration()
+        theWeb = WKWebView(frame: UIScreen.main.bounds, configuration: configuration)
+        theWeb.navigationDelegate = self
         goToWeb(urlString: urlString)
+        self.view.addSubview(theWeb)
+        theWeb.addSubview(mapButton)
+        theWeb.allowsBackForwardNavigationGestures = true
     }
     
     func goToWeb(urlString: String) {
         let url = URL(string: urlString)
         let urlRequest = URLRequest(url: url!)
-        webView.load(urlRequest)
+        theWeb.load(urlRequest)
     }
     
-//    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//    }
-//    
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//        mapButton.isHidden = false
-//    }
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        mapButton.isHidden = false
+    }
     
     @IBAction func backToMap(_ sender: Any) {
         let goBackToMap = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController

@@ -2,7 +2,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UISearchBarDelegate {
     
     var locationManager:CLLocationManager = CLLocationManager()
     
@@ -24,11 +24,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         mapView.delegate = self
         mapView.showsUserLocation = true
+        searchBar.delegate = self
         locationManager.startUpdatingLocation()
         
         mapView.region = MKCoordinateRegion()
-        
-//        searchRequest()
         
         let tttPin = Annotation(title: "Turn To Tech", subtitle: "Learn, Build Apps, Get Hired", coordinate: tttLocation, imageURL: "http://turntotech.io/wp-content/uploads/2015/12/kaushik-biswas.jpg", url: "http://turntotech.io")
         
@@ -52,13 +51,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         }
         
         mapView.addAnnotations(annotations)
-    }
-    
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func selectMapView(_ sender: UISegmentedControl) {
@@ -127,7 +119,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        self.locationManager.stopUpdatingLocation()
         if control == view.leftCalloutAccessoryView {
             if let pin = view.annotation{
                 if let titleOptional = pin.title,
@@ -135,11 +126,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
                     if let urlString = locationsURLs[title] {
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let webViewVC = storyboard.instantiateViewController(withIdentifier: "WebView") as! WebView
-                        _ = webViewVC.view
                         webViewVC.urlString = urlString
                         self.navigationController?.pushViewController(webViewVC, animated: true)
-//                        present(webViewVC, animated: true, completion: nil)
-//                        self.performSegue(withIdentifier: "showweb", sender: self)
                     }
                 }
             }
@@ -148,31 +136,33 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         mapView.setRegion(MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 250, 250), animated: true)
+        searchRequest()
     }
     
     
     
-//    func searchRequest() {
-//        let request = MKLocalSearchRequest()
-//        request.naturalLanguageQuery = "Restaurants"
-//        request.region = mapView.region
-//        
-//        let search = MKLocalSearch(request: request)
-//        search.start(completionHandler:  { (response, error) in
-//            guard let response = response else {
-//                print("Search error: \(String(describing: error))")
-//                return
-//            }
-//            
-//            for item in response.mapItems {
-//                let name = item.placemark.name
-//                let coor = item.placemark.coordinate
-//                let url = item.url
-//                
-//                print("\(name)\n\(coor)\n\(url)")
-//            }
-//        })
-//    }
+    func searchRequest() {
+        locationManager.stopUpdatingLocation()
+        let request = MKLocalSearchRequest()
+        request.naturalLanguageQuery = "Restaurants"
+        request.region = mapView.region
+        
+        let search = MKLocalSearch(request: request)
+        search.start(completionHandler:  { (response, error) in
+            guard let response = response else {
+                print("There was an error searching for: \(request.naturalLanguageQuery) error: \(error)")
+                return
+            }
+            
+            for item in response.mapItems {
+                let name = item.placemark.name
+                let coor = item.placemark.coordinate
+                let url = item.url
+                
+                print("\(name)\n\(coor)\n\(url)")
+            }
+        })
+    }
 
 }
 
