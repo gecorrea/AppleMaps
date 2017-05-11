@@ -65,10 +65,10 @@
 		AAC7E5191EAF9187008B9C99 /* AppleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				AAC7E51A1EAF9187008B9C99 /* AppDelegate.swift */,
-				AAC7E51C1EAF9187008B9C99 /* ViewController.swift */,
 				AA09732A1EB0F14E00CD9E4E /* Annotation.swift */,
+				AAC7E51A1EAF9187008B9C99 /* AppDelegate.swift */,
 				AAC7E51E1EAF9187008B9C99 /* Main.storyboard */,
+				AAC7E51C1EAF9187008B9C99 /* ViewController.swift */,
 				AA73CB8E1EB3A716002512D8 /* WebView.swift */,
 				AAC7E5211EAF9187008B9C99 /* Assets.xcassets */,
 				AAC7E5231EAF9187008B9C99 /* LaunchScreen.storyboard */,

@@ -6,8 +6,6 @@ class WebView: UIViewController, WKNavigationDelegate {
     var theWeb : WKWebView!
     
     @IBOutlet weak var mapButton: UIButton!
-
-//    @IBOutlet weak var webView: WKWebView!
     
     var urlString = String()
     
