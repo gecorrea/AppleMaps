@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AA09732B1EB0F14E00CD9E4E /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA09732A1EB0F14E00CD9E4E /* Annotation.swift */; };
+		AA51A51E1EC60864004F0FD6 /* DAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA51A51D1EC60864004F0FD6 /* DAO.swift */; };
 		AA73CB8F1EB3A716002512D8 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA73CB8E1EB3A716002512D8 /* WebView.swift */; };
 		AA820E501EC264CF008394E8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA820E4F1EC264CF008394E8 /* WebKit.framework */; };
 		AAC7E51B1EAF9187008B9C99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC7E51A1EAF9187008B9C99 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		AA09732A1EB0F14E00CD9E4E /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		AA51A51D1EC60864004F0FD6 /* DAO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAO.swift; sourceTree = "<group>"; };
 		AA73CB8E1EB3A716002512D8 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		AA820E4F1EC264CF008394E8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AAC7E5171EAF9187008B9C99 /* AppleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +69,7 @@
 			children = (
 				AA09732A1EB0F14E00CD9E4E /* Annotation.swift */,
 				AAC7E51A1EAF9187008B9C99 /* AppDelegate.swift */,
+				AA51A51D1EC60864004F0FD6 /* DAO.swift */,
 				AAC7E51E1EAF9187008B9C99 /* Main.storyboard */,
 				AAC7E51C1EAF9187008B9C99 /* ViewController.swift */,
 				AA73CB8E1EB3A716002512D8 /* WebView.swift */,
@@ -168,6 +171,7 @@
 				AA73CB8F1EB3A716002512D8 /* WebView.swift in Sources */,
 				AA09732B1EB0F14E00CD9E4E /* Annotation.swift in Sources */,
 				AAC7E51B1EAF9187008B9C99 /* AppDelegate.swift in Sources */,
+				AA51A51E1EC60864004F0FD6 /* DAO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
