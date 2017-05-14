@@ -6,19 +6,15 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     var locationManager:CLLocationManager = CLLocationManager()
     var dataManager = DAO.sharedInstance
+    var hasSetUserLocation = false
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    let tttLocationPin:CLLocationCoordinate2D = CLLocationCoordinate2DMake(40.70859189999999, -74.01492050000002)
-    let tttLocation:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 40.70859189999999, longitude: -74.01492050000002)
-    
-    var currentAnnotations = [Annotation]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
         locationManager.requestAlwaysAuthorization()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -26,22 +22,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         mapView.showsUserLocation = true
         searchBar.delegate = self
         dataManager.delegate = self
-        locationManager.startUpdatingLocation()
         
         mapView.region = MKCoordinateRegion()
         dataManager.startUp()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        if dataManager.searchIndex == 0 {
-            dataManager.startUp()
-        }
-        else {
-        searchBar.text = dataManager.searchBarText
-        dataManager.getResults(searchString: searchBar.text!, region: mapView.region)
-        }
-    }
-    
     
     @IBAction func selectMapView(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -62,7 +46,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
-            //return nil so map view draws "blue dot" for standard user location
             return nil
         }
         
@@ -123,12 +106,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     }
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        mapView.setRegion(MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 250, 250), animated: true)
+        if !hasSetUserLocation {
+            mapView.setRegion(MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 3000, 3000), animated: true)
+            hasSetUserLocation = true
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //view.endEditing(true)
-        
         mapView.removeAnnotations(dataManager.annotations)
         dataManager.annotations.removeAll()
         searchRequest()

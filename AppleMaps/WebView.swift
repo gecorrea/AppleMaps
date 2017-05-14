@@ -35,8 +35,6 @@ class WebView: UIViewController, WKNavigationDelegate {
     }
     
     @IBAction func backToMap(_ sender: Any) {
-        let goBackToMap = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as! ViewController
-        self.show(goBackToMap, sender: self)
+       dismiss(animated: true, completion: nil)
     }
-    
 }

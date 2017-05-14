@@ -13,13 +13,7 @@ class DAO {
     var locationImages: [String : String] = [:]
     var locationsURLs: [String : String] = [:]
     var delegate : RefreshMapDelegate?
-    var searchIndex = 0
     var searchBarText = String()
-    
-    private init()
-    {
-        
-    }
     
     func startUp() {
         let tttLocation:CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 40.70859189999999, longitude: -74.01492050000002)
@@ -48,7 +42,7 @@ class DAO {
     
     func getResults(searchString: String, region: MKCoordinateRegion) {
         annotations.removeAll()
-        searchIndex += 1
+
         let request = MKLocalSearchRequest()
         searchBarText = searchString
         request.naturalLanguageQuery = searchString
@@ -84,18 +78,10 @@ class DAO {
                     self.locationImages[newAnnotation.title!] = newAnnotation.imageURL
                     self.locationsURLs[newAnnotation.title!] = newAnnotation.url
                     self.annotations.append(newAnnotation)
-                    
-                    
-                    
                 }
                 print("Print Something....")
                 self.delegate?.refreshMap()
-                
-                
-                
             }
-            
-            
         })
     }
 }
