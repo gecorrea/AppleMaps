@@ -98,13 +98,13 @@
                         <subviews>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRp-xO-vTg">
                                 <rect key="frame" x="162" y="597" width="50" height="50"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="DXP-6F-bjr"/>
                                     <constraint firstAttribute="height" constant="50" id="lc3-8W-vgq"/>
                                 </constraints>
                                 <size key="titleShadowOffset" width="2" height="2"/>
-                                <state key="normal" image="map">
+                                <state key="normal" image="Maps-icon">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -134,7 +134,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map" width="512" height="512"/>
+        <image name="Maps-icon" width="256" height="256"/>
         <image name="turntotechIcon" width="350" height="85"/>
     </resources>
 </document>

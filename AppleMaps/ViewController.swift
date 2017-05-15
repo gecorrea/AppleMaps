@@ -107,7 +107,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         if !hasSetUserLocation {
-            mapView.setRegion(MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 3000, 3000), animated: true)
+            let span : CLLocationDegrees = 300
+            mapView.setRegion(MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, span, span), animated: true)
             hasSetUserLocation = true
         }
     }

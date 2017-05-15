@@ -37,6 +37,7 @@ class DAO {
             locationImages[location.title!] = location.imageURL
             locationsURLs[location.title!] = location.url
         }
+        
         delegate?.refreshMap()
     }
     
@@ -49,13 +50,14 @@ class DAO {
         request.region = region
         
         let search = MKLocalSearch(request: request)
-        
         search.start (completionHandler: { (response, error) in
             guard let response = response
                 else {return}
+            
             if error != nil {
                 print("There was an error searching for: \(String(describing: request.naturalLanguageQuery)) error: \(String(describing: error))")
             }
+                
             else {
                 for item in response.mapItems {
                     guard let name = item.name
@@ -63,6 +65,7 @@ class DAO {
                             print("name error")
                             continue
                     }
+                    
                     let subtitle = item.phoneNumber
                     let coor = item.placemark.coordinate
                     guard let url = item.url
@@ -71,15 +74,13 @@ class DAO {
                             continue
                     }
                     
-                    print("\(String(describing: name))\n\(coor)\n\(String(describing: url))")
-                    
-                    let newAnnotation = Annotation(title: name, subtitle: subtitle!, coordinate: coor, imageURL: "https://cdn2.iconfinder.com/data/icons/mobile-and-internet-business/501/mobile_website-128.png", url: String(describing: url))
+                    let newAnnotation = Annotation(title: name, subtitle: subtitle!, coordinate: coor, imageURL: "http://www.freeiconspng.com/uploads/domain-icon-27.png", url: String(describing: url))
                     
                     self.locationImages[newAnnotation.title!] = newAnnotation.imageURL
                     self.locationsURLs[newAnnotation.title!] = newAnnotation.url
                     self.annotations.append(newAnnotation)
                 }
-                print("Print Something....")
+                
                 self.delegate?.refreshMap()
             }
         })
